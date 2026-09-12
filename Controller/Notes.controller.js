@@ -30,6 +30,38 @@ exports.createNote = async (req, res, next) => {
   }
 };
 
+exports.getNotes = async (req, res, next) => {
+  try {
+    const page = Math.max(parseInt(req.query.page) || 1, 1);
+    const limit = Math.max(parseInt(req.query.limit) || 10, 1);
+    const search = req.query.search;
+
+    const filter = search ? { $text: { $search: search } } : {};
+
+    const [notes, totalCount] = await Promise.all([
+      NotesModel.find(filter)
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .sort({ createdAt: -1 }),
+      NotesModel.countDocuments(filter),
+    ]);
+
+    res.status(200).json({
+      success: true,
+      message: 'Notes retrieved successfully',
+      data: notes,
+      pagination: {
+        currentPage: page,
+        totalPages: Math.ceil(totalCount / limit) || 1,
+        totalCount,
+        limit,
+      },
+    });
+  } catch (err) {
+    next(new AppError('Failed to retrieve notes', 500));
+  }
+};
+
 exports.deleteNote = async (req, res, next) => {
   try {
     const { id } = req.params;
