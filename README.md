@@ -66,7 +66,7 @@ BeTechified-Adv-BD-Group1-Project/
    MONGODB_URI=<your-mongodb-connection-string>
    ```
 
-   > **Note:** If your MongoDB connection times out with a `querySrv ETIMEOUT` error, your network may be blocking DNS SRV lookups. In that case, use the standard (non-`+srv`) connection string format instead, listing shard hosts explicitly. Ask a teammate for the working connection string format if this happens.
+   > **Note:** If our MongoDB connection times out with a `querySrv ETIMEOUT` error, our network may be blocking DNS SRV lookups. In that case, we use the standard (non-`+srv`) connection string format instead, listing shard hosts explicitly. Asking a member of the team for the working connection string format if this happens.
 
 4. **Run the development server**
    ```bash
