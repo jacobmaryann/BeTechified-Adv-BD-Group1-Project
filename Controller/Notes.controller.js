@@ -10,59 +10,19 @@ const idSchema = Joi.string().custom((value, helpers) => {
   return value;
 }, 'ObjectId validation');
 
-exports.createNote = async (req, res, next) => {
-  try {
-    const { title, content, category, tags } = req.body;
-
-    if (!title || !content) {
-      return next(new AppError('Title and content are required', 400));
-    }
-
-    const newNote = await NotesModel.create({ title, content, category, tags });
-
-    res.status(201).json({
-      success: true,
-      message: 'Note created successfully',
-      data: newNote,
-    });
-  } catch (err) {
-    next(new AppError('Failed to create note', 500));
-  }
+const createNote = async (req, res) => {
 };
 
-exports.getNotes = async (req, res, next) => {
-  try {
-    const page = Math.max(parseInt(req.query.page) || 1, 1);
-    const limit = Math.max(parseInt(req.query.limit) || 10, 1);
-    const search = req.query.search;
-
-    const filter = search ? { $text: { $search: search } } : {};
-
-    const [notes, totalCount] = await Promise.all([
-      NotesModel.find(filter)
-        .skip((page - 1) * limit)
-        .limit(limit)
-        .sort({ createdAt: -1 }),
-      NotesModel.countDocuments(filter),
-    ]);
-
-    res.status(200).json({
-      success: true,
-      message: 'Notes retrieved successfully',
-      data: notes,
-      pagination: {
-        currentPage: page,
-        totalPages: Math.ceil(totalCount / limit) || 1,
-        totalCount,
-        limit,
-      },
-    });
-  } catch (err) {
-    next(new AppError('Failed to retrieve notes', 500));
-  }
+const getAllNotes = async (req, res) => {
 };
 
-exports.deleteNote = async (req, res, next) => {
+const getNoteById = async (req, res) => {
+};
+
+const updateNoteById = async (req, res) => {
+};
+
+const deleteNoteById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -86,3 +46,5 @@ exports.deleteNote = async (req, res, next) => {
     next(new AppError('Failed to delete note', 500));
   }
 };
+
+module.exports = { createNote, getAllNotes, getNoteById, updateNoteById, deleteNoteById };
