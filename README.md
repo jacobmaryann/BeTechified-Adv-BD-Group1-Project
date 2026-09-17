@@ -248,17 +248,11 @@ All errors are returned in a consistent JSON format via a global error-handling 
 | `500` | Server Error | Unexpected server or database failure |
 
 ## Testing
+Testing with Postman
 
-Endpoints were manually tested using [Thunder Client](https://www.thunderclient.com/) (VS Code extension). All create, retrieve (with pagination/search), and delete flows have been verified against their expected status codes.
+This repository includes a fully configured Postman collection to make testing the API endpoints easy.
 
-## Contributing
-
-1. Create a feature branch off `main`:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-2. Commit your changes and push:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-3. Open a pull request for team review before merging.
+Clone this repository to your local machine.
+Open Postman and click Import in the top left corner.
+Select the Notes-API.postman_collection.json file located in the root directory.
+All routes (GET, POST, PUT, DELETE) will be automatically loaded and ready to test against http://localhost:5001.
