@@ -1,4 +1,4 @@
-# Blog API
+# Notes API
 
 A RESTful backend API built with Express.js and MongoDB (Mongoose), providing CRUD operations for notes, including full-text search and pagination.
 
@@ -242,8 +242,9 @@ All errors are returned in a consistent JSON format via a global error-handling 
 
 | Status Code | Meaning | Example Trigger |
 |--------------|---------|------------------|
-| `400` | Bad Request | Invalid note ID format, missing required fields |
+| `400` | Bad Request | Invalid ID format, missing required fields |
 | `404` | Not Found | Note with the given ID does not exist |
+| `403` | Not Authorised | User not allowed |
 | `500` | Server Error | Unexpected server or database failure |
 
 ## Testing
