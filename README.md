@@ -4,10 +4,9 @@ A RESTful backend API built with Express.js and MongoDB (Mongoose), providing CR
 
 ## Live URL
 
-> 🚧 Not yet deployed. This section will be updated with the live Render URL once deployment is complete.
 
 ```
-Live API base URL: [https://<your-app-name>.onrender.com]  (coming soon)
+Live API base URL: (https://betechified-adv-bd-group1-project.onrender.com)
 ```
 
 ## Tech Stack
