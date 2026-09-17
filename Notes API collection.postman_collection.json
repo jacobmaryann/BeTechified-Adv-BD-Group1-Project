@@ -1,0 +1,145 @@
+{
+  "info": {
+    "_postman_id": "d6d9a416-a5db-4e24-9278-4ec74528b12e",
+    "name": "Notes API collection",
+    "description": "## Notes API Collection\n\nThis collection covers the full lifecycle of interacting with the **Notes API**, hosted at `betechified-adv-bd-group1-project.onrender.com`. It includes endpoints for user authentication and complete CRUD operations on notes.\n\n### Authentication\n- **Register** – Create a new user account.\n- **Login** – Authenticate and obtain an access token.\n\n### Notes\n- **Get All Notes** – Retrieve a list of all notes for the authenticated user.\n- **Get a Note by ID** – Fetch a single note using its unique identifier.\n- **Query Params** – Filter or search notes using query parameters.\n- **Update a Note** – Modify the content of an existing note by ID.\n- **Delete a Note** – Permanently remove a note by ID.\n\n> **Note:** Most endpoints require a valid authentication token obtained from the Login request. Make sure to set it in your environment or request headers before making authenticated calls.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56832951",
+    "_collection_link": "https://go.postman.co/collection/56832951-d6d9a416-a5db-4e24-9278-4ec74528b12e?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Bisola\",\n    \"email\": \"Bisola@gmail.com\",\n    \"password\": \"Bisola\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://betechified-adv-bd-group1-project.onrender.com/api/user/auth/register",
+          "protocol": "https",
+          "host": [
+            "betechified-adv-bd-group1-project",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "user",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Get All notes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "description": "## Get All Notes\n\nRetrieves all notes belonging to the authenticated user.\n\n---\n\n### Endpoint\n\n| Method | URL |\n|--------|-----|\n| `GET` | `https://betechified-adv-bd-group1-project.onrender.com/api/notes` |\n\n---\n\n### Authentication\n\nThis request requires a **Bearer Token**. Include a valid JWT token in the `Authorization` header (configured in the Auth tab).\n\n```\nAuthorization: Bearer <your_token>\n```\n\n---\n\n### Request\n\n- **Query Parameters:** None\n- **Request Body:** None\n\n---\n\n### Response\n\n**Status:** `200 OK`\n\nReturns a success message and an array of note objects.\n\n```json\n{\n  \"message\": \"Notes retrieved successfully\",\n  \"data\": [\n    {\n      \"_id\": \"6aaaf0e61f52969bd2c55b2c\",\n      \"title\": \"Hello notes\",\n      \"content\": \"Samuel owns this note\",\n      \"user\": {\n        \"_id\": \"6aa8477802f0ed6f4f844ed5\",\n        \"name\": \"Sammy\",\n        \"email\": \"sammy@gmail.com\"\n      },\n      \"category\": \"personal\",\n      \"createdAt\": \"2026-09-16T19:41:26.138Z\",\n      \"updatedAt\": \"2026-09-16T21:01:20.818Z\",\n      \"__v\": 0\n    }\n  ]\n}\n```\n\n#### Response Fields\n\n| Field | Type | Description |\n|-------|------|-------------|\n| `message` | `string` | A human-readable status message confirming the operation |\n| `data` | `array` | List of note objects belonging to the authenticated user |\n| `data[]._id` | `string` | Unique identifier for the note |\n| `data[].title` | `string` | Title of the note |\n| `data[].content` | `string` | Body/content of the note |\n| `data[].user` | `object` | Details of the user who owns the note |\n| `data[].user._id` | `string` | Unique identifier of the note owner |\n| `data[].user.name` | `string` | Full name of the note owner |\n| `data[].user.email` | `string` | Email address of the note owner |\n| `data[].category` | `string` | Category assigned to the note (e.g. `personal`) |\n| `data[].createdAt` | `string (ISO 8601)` | Timestamp when the note was created |\n| `data[].updatedAt` | `string (ISO 8601)` | Timestamp when the note was last updated |\n| `data[].__v` | `number` | Internal version key (MongoDB) |"
+      },
+      "response": []
+    },
+    {
+      "name": "Get a note by id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "description": "## Get a Note by ID\n\nRetrieves a single note from the system using its unique identifier.\n\n---\n\n### Endpoint\n\n```\nGET /api/notes/:id\n\n ```\n\n---\n\n### Path Parameter\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `id` | string | Yes | The unique MongoDB ObjectID of the note to retrieve (e.g. `6aaaf0e61f52969bd2c55b2c`) |\n\n---\n\n### Authentication\n\nThis request requires a **Bearer Token**. Include a valid JWT token in the Authorization header (configured in the **Auth** tab).\n\n```\nAuthorization: Bearer <your_token>\n\n ```\n\n---\n\n### Response\n\n**Status:** `201 Created`\n\nReturns a single note object belonging to the authenticated user.\n\n#### Response Body\n\n``` json\n{\n  \"_id\": \"6aaaf0e61f52969bd2c55b2c\",\n  \"title\": \"Hello notes\",\n  \"content\": \"Samuel owns this note\",\n  \"user\": \"6aa8477802f0ed6f4f844ed5\",\n  \"category\": \"personal\",\n  \"createdAt\": \"2026-09-16T19:41:26.138Z\",\n  \"updatedAt\": \"2026-09-16T21:01:20.818Z\",\n  \"__v\": 0\n}\n\n ```\n\n#### Response Fields\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `_id` | string | Unique identifier of the note |\n| `title` | string | Title of the note |\n| `content` | string | Body/content of the note |\n| `user` | string | ID of the user who owns the note |\n| `category` | string | Category the note belongs to (e.g. `personal`) |\n| `createdAt` | string | ISO 8601 timestamp of when the note was created |\n| `updatedAt` | string | ISO 8601 timestamp of the last update |\n| `__v` | number | Version key (internal MongoDB field) |"
+      },
+      "response": []
+    },
+    {
+      "name": "Query params",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "description": "**Search Notes with Query Parameters**\n\nThis request retrieves a filtered and paginated list of notes for the authenticated user. It sends a `GET` request to the Notes API with optional query parameters to search by keyword and control pagination.\n\n**Endpoint:** `GET /api/notes`\n\n**Query Parameters:**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `q` | string | Keyword to search notes by title, content, category, or tags. |\n| `page` | number | Page number for paginated results (default: 1) |\n| `limit` | number | Number of notes to return per page (default: 5) |\n\n**Authentication:** Required (Bearer Token — configured in the Auth tab).\n\n**Response:** Returns a success message and an array of matching note objects. Each note includes fields such as `_id`, `title`, `content`, `category`, `user`, `createdAt`, and `updatedAt`."
+      },
+      "response": []
+    },
+    {
+      "name": "Update a note",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "https://betechified-adv-bd-group1-project.onrender.com/api/notes/6aaaf0e61f52969bd2c55b2c",
+          "protocol": "https",
+          "host": [
+            "betechified-adv-bd-group1-project",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "notes",
+            "6aaaf0e61f52969bd2c55b2c"
+          ]
+        },
+        "description": "**Update a Note**\n\nThis request updates an existing note identified by its unique ID in the URL path. It sends a `PUT` request to the Notes API and modifies the note's details (such as title, content, and category) for the authenticated user.\n\n**Endpoint:** `PUT /api/notes/:id`\n\n**Path Parameter:**\n\n- `id` — The unique identifier of the note to be updated (e.g., `6aaaf0e61f52969bd2c55b2c`).\n    \n\n**Authentication:** Required (Bearer Token — configured in the Auth tab).\n\n**Response:** Returns a success message along with the updated note object, including fields such as `title`, `content`, `category`, `user`, `createdAt`, and `updatedAt`."
+      },
+      "response": []
+    },
+    {
+      "name": "Delete a note",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://betechified-adv-bd-group1-project.onrender.com/api/notes/6aaaf0e61f52969bd2c55b2c",
+          "protocol": "https",
+          "host": [
+            "betechified-adv-bd-group1-project",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "notes",
+            "6aaaf0e61f52969bd2c55b2c"
+          ]
+        },
+        "description": "**Delete a Note**\n\nThis request deletes an existing note identified by its unique ID in the URL path. It sends a DEL request to the Notes API and deletes the note's details (such as title, content, and category) for the authenticated user.\n\n**Endpoint:** `DEL /api/notes/:id`\n\n**Path Parameter:**\n\n- `id` — The unique identifier of the note to be deleted (e.g., `6aaaf0e61f52969bd2c55b2c`).\n    \n\n**Authentication:** Required (Bearer Token — configured in the Auth tab).\n\n**Response:** Returns a success message \"Note with id `6aaaf0e61f52969bd2c55b2c deleted successfully\"`."
+      },
+      "response": []
+    }
+  ]
+}
