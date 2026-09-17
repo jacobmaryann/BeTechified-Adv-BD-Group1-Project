@@ -48,7 +48,7 @@ BeTechified-Adv-BD-Group1-Project/
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/jacobmaryann/BeTechified-Adv-BD-Group1-Project.git
    cd BeTechified-Adv-BD-Group1-Project
    ```
 
@@ -61,7 +61,7 @@ BeTechified-Adv-BD-Group1-Project/
 
    Create a `.env` file in the project root (use `.env.example` as a reference) with the following:
    ```
-   PORT=3007
+   PORT=5001
    MONGODB_URI=<your-mongodb-connection-string>
    ```
 
@@ -74,7 +74,7 @@ BeTechified-Adv-BD-Group1-Project/
 
    You should see:
    ```
-   Server is listening on PORT 3007
+   Server is listening on PORT 5001
    Database connected successfully
    ```
 
@@ -86,7 +86,35 @@ Base path: `/api/notes`
 |--------|----------|--------------|
 | `GET` | `/api/notes` | Get all notes (supports pagination & search) |
 | `POST` | `/api/notes` | Create a new note |
+| `PUT` | `/api/notes/:id`| Update a note
 | `DELETE` | `/api/notes/:id` | Delete a note by ID |
+
+## To be a user, first register
+
+```
+POST/api/user/auth/register
+Content-Type: application/json
+
+{
+"name": "your name"
+"email": "your email
+"password": "your password"
+}
+```
+
+## To be a user, second login
+
+```
+POST/api/user/auth/login
+Content-Type: application/json
+
+{
+"email": "your email
+"password": "your password"
+}
+```
+
+
 
 ### Create a Note
 
