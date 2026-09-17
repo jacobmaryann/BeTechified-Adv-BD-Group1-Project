@@ -254,5 +254,5 @@ This repository includes a fully configured Postman collection to make testing t
 
 Clone this repository to your local machine.
 Open Postman and click Import in the top left corner.
-Select the Notes-API.postman_collection.json file located in the root directory.
+Select the ```Notes-API.postman_collection.json``` file located in the root directory.
 All routes (GET, POST, PUT, DELETE) will be automatically loaded and ready to test against http://localhost:5001.
